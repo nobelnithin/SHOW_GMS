@@ -12,6 +12,8 @@
 #include "esp_log.h"
 #include "driver/gpio.h"
 #include "ssd1306.c"
+#include "image.h"
+#include "esp_sleep.h"
 
 SSD1306_t dev;
 #define CONFIG_SDA_GPIO 1
@@ -25,6 +27,8 @@ SSD1306_t dev;
 #define BTN_OK GPIO_NUM_7
 #define BTN_PWR GPIO_NUM_6
 #define CH1 GPIO_NUM_5
+
+
 
 
 xQueueHandle BTN_UPQueue;
@@ -62,6 +66,8 @@ uint64_t BTN_PWR_curr_time = 0;
 uint64_t CH1_pre_time = 0;
 uint64_t CH1_intr_time = 0;
 uint64_t CH1_curr_time = 0;
+
+
 
 void BTN_UPTask(void *params)
 {
@@ -379,4 +385,5 @@ void app_main(void)
     xTaskCreate(BTN_OKTask, "BTN_OKTask", 2048, NULL, 1, NULL);
     xTaskCreate(BTN_PWRTask, "BTN_PWRTask", 2048, NULL, 1, NULL);
     xTaskCreate(CH1Task, "CH1Task", 2048, NULL, 1, NULL);
+
 }
